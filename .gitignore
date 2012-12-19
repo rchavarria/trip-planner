@@ -1,0 +1,6 @@
+.settings/*
+.classpath
+.project
+prodDb.h2.db
+stacktrace.log
+target/*
