@@ -62,6 +62,8 @@ in the relationship and Trip is the 'many'.
 Define a `static hasMany = [trip: Trip]` hashmap in Airline, and a `static belongsTo = [airline: Airline]` map in Trip to create this kind of
 relationship.
 
+Using `static belongsTo = Airline` adds another dimension to the relationship: cascading updates and deletes.
+
 ### validacion de datos
 
 Add a `static constraints` closure to Airline domain class. 
@@ -122,3 +124,10 @@ To use our new custom tag lib, open a `list.gsp` page and add the follwing to th
     <g:render template="/footer" />
 
 This will show the result of our new tab lib in **all** list pages.
+
+### Generate views to customize them
+
+With the command `grails generate-views Flight`, we can generate the scaffolding views for the Flight
+domain class. Then, we have a set of views to modify and customize whatever we want.
+
+
