@@ -23,20 +23,13 @@
 			</g:if>
 			<ol class="property-list trip">
 			
-				<g:if test="${tripInstance?.city}">
+				<g:if test="${tripInstance?.flights}">
 				<li class="fieldcontain">
-					<span id="city-label" class="property-label"><g:message code="trip.city.label" default="City" /></span>
+					<span id="flights-label" class="property-label"><g:message code="trip.flights.label" default="Flights" /></span>
 					
-						<span class="property-value" aria-labelledby="city-label"><g:fieldValue bean="${tripInstance}" field="city"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tripInstance?.endDate}">
-				<li class="fieldcontain">
-					<span id="endDate-label" class="property-label"><g:message code="trip.endDate.label" default="End Date" /></span>
-					
-						<span class="property-value" aria-labelledby="endDate-label"><g:formatDate date="${tripInstance?.endDate}" /></span>
+						<g:each in="${tripInstance.flights}" var="f">
+						<span class="property-value" aria-labelledby="flights-label"><g:link controller="flight" action="show" id="${f.id}">${f?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>
@@ -46,33 +39,6 @@
 					<span id="name-label" class="property-label"><g:message code="trip.name.label" default="Name" /></span>
 					
 						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${tripInstance}" field="name"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tripInstance?.notes}">
-				<li class="fieldcontain">
-					<span id="notes-label" class="property-label"><g:message code="trip.notes.label" default="Notes" /></span>
-					
-						<span class="property-value" aria-labelledby="notes-label"><g:fieldValue bean="${tripInstance}" field="notes"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tripInstance?.purpose}">
-				<li class="fieldcontain">
-					<span id="purpose-label" class="property-label"><g:message code="trip.purpose.label" default="Purpose" /></span>
-					
-						<span class="property-value" aria-labelledby="purpose-label"><g:fieldValue bean="${tripInstance}" field="purpose"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tripInstance?.startDate}">
-				<li class="fieldcontain">
-					<span id="startDate-label" class="property-label"><g:message code="trip.startDate.label" default="Start Date" /></span>
-					
-						<span class="property-value" aria-labelledby="startDate-label"><g:formatDate date="${tripInstance?.startDate}" /></span>
 					
 				</li>
 				</g:if>

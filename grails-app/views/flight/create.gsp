@@ -5,6 +5,42 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'flight.label', default: 'Flight')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+
+		<g:javascript library="prototype" />
+		<script type="text/javascript">
+			function get(airportField) {
+				var baseUrl = "${createLink(controller:'airport', action:'getJson')}";
+				var url = baseUrl + "?iata=" + $F(airportField + "Iata");
+				new Ajax.Request(url, {
+					method: 'get',
+					asynchronous: true,
+					onSuccess: function(req) { update(req.responseText, airportField) }
+				});
+			};
+
+			function update(json, airportField) {
+				var airport = eval( "(" + json + ")" );
+				var output = $(airportField + "Text");
+				output.innerHTML = airport.iata + " - " + airport.name;
+				var hiddenField = $(airportField + ".id");
+				airport.id == null ? hiddenField.value = -1 : hiddenField.value = airport.id;
+			};
+
+			function validate() {
+				if( $F("airport.id") == -1) {
+					alert("Please, supply a valid Departure Airport");
+					return false;
+				}
+
+				if( $F("arrivalAirport.id") == -1) {
+					alert("Please, supply a valid Arrival Airport");
+					return false;
+				}
+
+				return true;
+			}
+		</script>
+
 	</head>
 	<body>
 		<a href="#create-flight" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -26,7 +62,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form action="save" onsubmit="return validate()">
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

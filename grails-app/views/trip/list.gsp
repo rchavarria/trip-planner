@@ -24,17 +24,7 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="city" title="${message(code: 'trip.city.label', default: 'City')}" />
-					
-						<g:sortableColumn property="endDate" title="${message(code: 'trip.endDate.label', default: 'End Date')}" />
-					
 						<g:sortableColumn property="name" title="${message(code: 'trip.name.label', default: 'Name')}" />
-					
-						<g:sortableColumn property="notes" title="${message(code: 'trip.notes.label', default: 'Notes')}" />
-					
-						<g:sortableColumn property="purpose" title="${message(code: 'trip.purpose.label', default: 'Purpose')}" />
-					
-						<g:sortableColumn property="startDate" title="${message(code: 'trip.startDate.label', default: 'Start Date')}" />
 					
 					</tr>
 				</thead>
@@ -42,17 +32,7 @@
 				<g:each in="${tripInstanceList}" status="i" var="tripInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${tripInstance.id}">${fieldValue(bean: tripInstance, field: "city")}</g:link></td>
-					
-						<td><g:formatDate date="${tripInstance.endDate}" /></td>
-					
-						<td>${fieldValue(bean: tripInstance, field: "name")}</td>
-					
-						<td>${fieldValue(bean: tripInstance, field: "notes")}</td>
-					
-						<td>${fieldValue(bean: tripInstance, field: "purpose")}</td>
-					
-						<td><g:formatDate date="${tripInstance.startDate}" /></td>
+						<td><g:link action="show" id="${tripInstance.id}">${fieldValue(bean: tripInstance, field: "name")}</g:link></td>
 					
 					</tr>
 				</g:each>
@@ -62,5 +42,6 @@
 				<g:paginate total="${tripInstanceTotal}" />
 			</div>
 		</div>
+		<g:render template="/footer" />
 	</body>
 </html>

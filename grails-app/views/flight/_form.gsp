@@ -7,7 +7,7 @@
 		<g:message code="flight.airline.label" default="Airline" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="airline" name="airline.id" from="${trip.planner.Airline.list()}" optionKey="id" required="" value="${flightInstance?.airline?.id}" class="many-to-one"/>
+	<g:select id="airline" name="airline.id" from="${trip.planner.Airline.listOrderByName()}" optionKey="id" required="" value="${flightInstance?.airline?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: flightInstance, field: 'airport', 'error')} required">
@@ -15,7 +15,21 @@
 		<g:message code="flight.airport.label" default="Airport" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="airport" name="airport.id" from="${trip.planner.Airport.list()}" optionKey="id" required="" value="${flightInstance?.airport?.id}" class="many-to-one"/>
+
+	<div id="airportText">[Type an Airport IATA code]</div>
+	<input type="hidden" name="airport.id" value="-1" id="airport.id" />
+	<input type="text" name="airportIata" id="airportIata" />
+	<input type="button" value="Find" onClick="get('airport')" />
+
+	<!--
+	<g:select id="airport" 
+			  name="airport.id" 
+			  from="${trip.planner.Airport.list()}" 
+			  optionKey="id" 
+			  required="" 
+			  value="${flightInstance?.airport?.id}" 
+			  class="many-to-one"/>
+	-->
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: flightInstance, field: 'arrivalAirport', 'error')} required">

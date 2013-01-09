@@ -40,6 +40,12 @@ Every action in a controller pairs up with a view based on the name of the actio
 - TripController.list -> Trip/list.gsp
 - and so on ...
 
+### Create only a controller
+
+To create a controller for the `Airport` domain class:
+
+    grails create-controller Airport
+
 ### Run the applicaton
 
     grails -Dserver.port=9090 run-app
@@ -129,5 +135,17 @@ This will show the result of our new tab lib in **all** list pages.
 
 With the command `grails generate-views Flight`, we can generate the scaffolding views for the Flight
 domain class. Then, we have a set of views to modify and customize whatever we want.
+
+### Services
+
+Services are places where you can store commonly used methods that transcend any single domain class.
+I see them as places where you can put your bussiness logic that affects several domain classes, or
+code that relates to third party functionalities.
+
+With the command:
+
+    grails create-service Geocoder
+
+we create a service in `grails-app/services/trip/planner/GeocoderService.groovy`
 
 
