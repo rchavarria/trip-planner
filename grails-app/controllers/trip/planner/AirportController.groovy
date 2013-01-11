@@ -8,8 +8,50 @@ class AirportController {
     def geocoderService
     def scaffold = Airport
 
-    def getXml = {
-    	render Airport.findByIata(params.iata) as XML
+    def debugAccept = {
+        def clientRequest = request.getHeader("accept")
+        def serverResponse = request.format
+        render "Client: ${clientRequest}\nServer: ${serverResponse}\n"
+    }
+
+    def xmlList = {
+        render Airport.list() as XML
+    }
+
+    def xmlShow = {
+    	render Airport.findByIata(params.id) as XML
+    }
+
+    def list = {
+        if(!params.max) params.max = 10
+
+        def list = Airport.list(params)
+        withFormat {
+            html {
+                return [airportList: list]
+            }
+            xml {
+                render list as XML
+            }
+        }
+    }
+
+    def index = {
+        switch(request.method) {
+        case "GET":
+            if(params.iata) render Airport.findByIata(params.iata) as XML
+            else render Airport.list() as XML
+            break
+        case "POST":
+            render "create\n"
+            break
+        case "PUT":
+            render "update\n"
+            break
+        case "DELETE":
+            render "remove\n"
+            break
+        }
     }
 
     def getJson = {

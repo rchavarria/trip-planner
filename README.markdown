@@ -148,4 +148,37 @@ With the command:
 
 we create a service in `grails-app/services/trip/planner/GeocoderService.groovy`
 
+### RESTful grails
+
+Tha Atom publishing protocol is a popular syndication format that follows RESTful principles. The authors
+of the RFC for Atom try to end the POST vs. PUT debate definitevely:
+
+* GET is used to retrieve a representation of a known Resource
+* POST is used to create a new, dynamically named, Resource
+* PUT is used to edit a known Resource. It is not used for creation
+* DELETE is used to remove a known Resource
+
+To implement a RESTful functionality in grails, follow this steps:
+
+1. choose an action of a controller to handle the four request types (get, post, ...), for example, choose
+the controller `Airport` and `restful` action. You will invoke the REST functionality this way: 
+http://localhost:8008/trip-planner/airport/restful
+2. customize the url mappings in the file `UrlMappings.groovy` to handel RESTful request with your
+new action. Your new REST URL will be http://localhost:8080/trip-planner/rest/airport/restful
+
+    "/rest/airport/restful/$iata?"(controller: "airport", action: "restful")
+
+3. Thats all, you can test it with the [cURL application](http://curl.haxx.se/):
+
+    curl --request GET http://localhost:8080/rest/airport/restful
+
+### MIME types
+
+In the file `Config.groovy` we can find the key `grails.mime.types` with a map that contains the supported
+mime types and their values that are expected to be in the Header of a HTML request
+
+### URL mappings
+
+One can customize URL mappings simply by editing a groovy file: `UrlMappings.groovy`. This will allow you
+to specify how URL's map to certain actions in your Controllers.
 
