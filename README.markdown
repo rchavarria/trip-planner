@@ -182,3 +182,31 @@ mime types and their values that are expected to be in the Header of a HTML requ
 One can customize URL mappings simply by editing a groovy file: `UrlMappings.groovy`. This will allow you
 to specify how URL's map to certain actions in your Controllers.
 
+### Testing in grails
+
+Every time you create a domain class, or a controller, or a service, ... grails create a test class for you.
+You can use these test classes to perform integration tests of your newly created code.
+
+Don't test grails code, or grails generated code. The effort is not worthy. Focus on test your own code.
+
+To create a unit test, that is, a test to exercise a single class, not in a full and running environment, 
+you can use the command `grails create-unit-test trip.planner.MyTestUnit`
+
+### Testing domain classes
+
+Some methods, and properties of domain classes that are usefull to test them:
+
+        assert !domainClass.validate()
+        assert domainClass.hasErrors()
+        // search for a field called hotel that contains errors
+        def badField = domainClass.errors.getFieldError('hotel')
+        assert badField != null
+        // search for the error message code telling that the hotel field is blank
+        def code = badField.codes.find { it == "domainClass.hotel.blank" }
+        assert code != null
+
+### Error messages
+
+You can find a properties file describing all error messages in the following paht 
+`grails-app/i18n/messages.properties` 
+
