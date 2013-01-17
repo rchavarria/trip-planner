@@ -23,6 +23,15 @@
 			</g:if>
 			<ol class="property-list hotelStay">
 			
+				<g:if test="${hotelStayInstance?.hotel}">
+				<li class="fieldcontain">
+					<span id="hotel-label" class="property-label"><g:message code="hotelStay.hotel.label" default="Hotel" /></span>
+					
+						<span class="property-value" aria-labelledby="hotel-label"><g:fieldValue bean="${hotelStayInstance}" field="hotel"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${hotelStayInstance?.checkIn}">
 				<li class="fieldcontain">
 					<span id="checkIn-label" class="property-label"><g:message code="hotelStay.checkIn.label" default="Check In" /></span>
@@ -37,15 +46,6 @@
 					<span id="checkOut-label" class="property-label"><g:message code="hotelStay.checkOut.label" default="Check Out" /></span>
 					
 						<span class="property-value" aria-labelledby="checkOut-label"><g:formatDate date="${hotelStayInstance?.checkOut}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${hotelStayInstance?.hotel}">
-				<li class="fieldcontain">
-					<span id="hotel-label" class="property-label"><g:message code="hotelStay.hotel.label" default="Hotel" /></span>
-					
-						<span class="property-value" aria-labelledby="hotel-label"><g:fieldValue bean="${hotelStayInstance}" field="hotel"/></span>
 					
 				</li>
 				</g:if>

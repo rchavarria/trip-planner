@@ -19,4 +19,17 @@ class DateTagLibTests {
         String expected = Calendar.getInstance().get(Calendar.YEAR)
         assertEquals(expected, new DateTagLib().thisYear().toString())
     }
+
+    void testNoFormat() {
+    	def output = new DateTagLib().customDateFormat(format: null, body: "2013-01-16 00:00:00.0")
+    	println "\ncustomDateFormat using the default format"
+    	println output
+
+    	assert "jueves" == output
+    }
+
+    void testCustomFormat() {
+    	def output = new DateTagLib().customDateFormat(format: "dd/MM/yyyy", body: "2013-01-16 00:00:00.0")
+    	assert "16/01/2013" == output
+    }
 }

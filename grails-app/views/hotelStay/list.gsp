@@ -24,11 +24,11 @@
 				<thead>
 					<tr>
 					
+						<g:sortableColumn property="hotel" title="${message(code: 'hotelStay.hotel.label', default: 'Hotel')}" />
+					
 						<g:sortableColumn property="checkIn" title="${message(code: 'hotelStay.checkIn.label', default: 'Check In')}" />
 					
 						<g:sortableColumn property="checkOut" title="${message(code: 'hotelStay.checkOut.label', default: 'Check Out')}" />
-					
-						<g:sortableColumn property="hotel" title="${message(code: 'hotelStay.hotel.label', default: 'Hotel')}" />
 					
 					</tr>
 				</thead>
@@ -36,11 +36,13 @@
 				<g:each in="${hotelStayInstanceList}" status="i" var="hotelStayInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${hotelStayInstance.id}">${fieldValue(bean: hotelStayInstance, field: "checkIn")}</g:link></td>
+						<td><g:link action="show" id="${hotelStayInstance.id}">${fieldValue(bean: hotelStayInstance, field: "hotel")}</g:link></td>
+					
+						<td>
+							<g:customDateFormat>${hotelStayInstance.checkIn}</g:customDateFormat>
+						</td>
 					
 						<td><g:formatDate date="${hotelStayInstance.checkOut}" /></td>
-					
-						<td>${fieldValue(bean: hotelStayInstance, field: "hotel")}</td>
 					
 					</tr>
 				</g:each>
