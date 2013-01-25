@@ -75,4 +75,18 @@ class AirportController {
             render(view: 'create', model: [airport: airport])
         }
     }
+
+    def iata = {
+        def iata = params.id?.toUpperCase() ?: "NO IATA"
+        def results = geocoderService.geocodeAirport(iata)
+        def airport
+
+        if(results) {
+            airport = new Airport( [ iata: iata ] + results)
+        } else {
+            airport = new Airport(iata: iata, name: "Not found")
+        }
+
+        render airport as JSON
+    }
 }
