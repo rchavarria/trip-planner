@@ -210,3 +210,7 @@ Some methods, and properties of domain classes that are usefull to test them:
 You can find a properties file describing all error messages in the following paht 
 `grails-app/i18n/messages.properties` 
 
+### Remote forms
+
+Using `<g:formRemote>` in a GSP file, you make an `Ajax.Request` perform the form submission
+asynchronously behind the scenes.
