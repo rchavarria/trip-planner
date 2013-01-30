@@ -60,6 +60,7 @@
 
         //
         drawLine();
+        showHotelsLink();
       }
 
       function drawLine() {
@@ -78,6 +79,56 @@
             });
           line.setMap(map);
         }
+      }
+
+      function showHotelsLink() {
+        if(airportMarkers[1] != null) {
+          var hotels_link = document.getElementById("hotels_link")
+          hotels_link.innerHTML = '<a href="#" onclick="loadHotels();">Show Nearby Hotels ...</a>'
+        }
+      }
+
+      function loadHotels() {
+        var url = "${createLink(controller: 'hotelStay', action: 'near')}";
+        url += "?lat=" + airportMarkers[1].getPosition().lat();
+        url += "&lng=" + airportMarkers[1].getPosition().lng();
+
+        alert("loadHotels: " + url);
+
+        jQuery.ajax( {
+          type: 'GET',
+          data: jQuery(this).serialize(), 
+          url: url,
+          success: function(data, textStatus) {
+            showHotels(data);
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown){
+            displayError(XMLHttpRequest);
+          }
+        });
+
+      }
+
+      function displayError(data) {
+        alert("error: " + data);
+      }
+
+      function showHotels(data) {
+        alert("show hotels: " + data);
+
+        var resultCount = data.ResultSet.totalResultsReturned;
+
+        var html = "<ul>";
+        for(var i = 0; i < resultCount; i++) {
+          html += "<li>" + data.ResultSet.Result[i].Title + "<br/>";
+          html += "Distance: " + data.ResultSet.Result[i].Distance + "<br/>";
+          html += "<hr/>";
+          html += "</li>";
+        }
+        html += "</ul>";
+
+        var hotels = document.getElementById("hotels");
+        hotels.innerHTML = html;
       }
     </script>
 
@@ -108,6 +159,9 @@
           <input type="submit" value="Search" />
         </g:formRemote>
         <div id="airport_1"></div>
+
+        <div id="hotels_link"></div>
+        <div id="hotels"></div>
       </div>
 
     </div>
